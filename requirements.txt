@@ -1,0 +1,2 @@
+sanic==22.3.0
+envparse==0.2.0
