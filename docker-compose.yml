@@ -19,10 +19,26 @@ services:
       - WORKERS=1
       # App logic settings
       - ORIGINAL_LINK_FREQUENCY=1
-      - CDN_LINK_FREQUENCY=3
+      - CDN_LINK_FREQUENCY=9
       - CDN_HOST=www.awesome-cdn.ru
     ports:
     - "8000:8000"
+
+  balancer_test:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: "no"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - ENTRYPOINT_NOWAIT=1
+      # App logic settings
+      - ORIGINAL_LINK_FREQUENCY=1
+      - CDN_LINK_FREQUENCY=2
+      - CDN_HOST=www.awesome-cdn.ru
+    tty: true
 
 volumes:
   data:
