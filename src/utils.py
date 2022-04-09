@@ -1,7 +1,7 @@
 import re
 
-import settings
-from constants import LinkType, URL_FORMAT
+from src import settings
+from src.constants import LinkType, URL_FORMAT
 
 
 def is_url_correct(url: str) -> bool:

@@ -2,8 +2,8 @@ from sanic import Sanic
 from sanic.response import HTTPResponse, redirect
 from sanic.request import Request
 
-import settings
-from utils import is_url_correct, get_actual_url
+from src import settings
+from src.utils import is_url_correct, get_actual_url
 
 
 app = Sanic(name='load-balancer')

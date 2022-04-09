@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  balancer:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: "python /app/src/server.py"
+    entrypoint: ""
+    restart: "no"
+    volumes:
+      - .:/app
+    environment:
+      # App server settings
+      - PYTHONPATH=/app
+      - ENTRYPOINT_NOWAIT=1
+      - PORT=8000
+      - DEBUG=True
+      - WORKERS=1
+      # App logic settings
+      - ORIGINAL_LINK_FREQUENCY=1
+      - CDN_LINK_FREQUENCY=3
+      - CDN_HOST=www.awesome-cdn.ru
+    ports:
+    - "8000:8000"
+
+volumes:
+  data:
