@@ -11,8 +11,8 @@ WORKERS = env.int('WORKERS', default=1)
 
 # App logic settings
 #
-# frequency to redirect to the original server (1 means 1 time out of 10)
-ORIGINAL_LINK_FREQUENCY = env.int('ORIGINAL_LINK_FREQUENCY', default=1)
-# frequency to redirect to cdn (9 means 9 times out of 10)
-CDN_LINK_FREQUENCY = env.int('CDN_LINK_FREQUENCY', default=9)
+# frequency to redirect to the original server
+# 10 means - redirect every tenth request to the original server.
+# Rest 9 from 10 requests will be sent to cdn.
+ORIGINAL_LINK_FREQUENCY = env.int('ORIGINAL_LINK_FREQUENCY', default=10)
 CDN_HOST = env.str('CDN_HOST', default='www.awesome-cdn.ru')

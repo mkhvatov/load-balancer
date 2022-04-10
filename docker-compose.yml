@@ -7,6 +7,8 @@ services:
       context: .
     command: "python /app/src/server.py"
     entrypoint: ""
+    depends_on:
+      - redis
     restart: "no"
     volumes:
       - .:/app
@@ -15,11 +17,13 @@ services:
       - PYTHONPATH=/app
       - ENTRYPOINT_NOWAIT=1
       - PORT=8000
-      - DEBUG=False
+      - DEBUG=True
       - WORKERS=1
+      - REDIS_ENDPOINT=redis
+      - REDIS_DB=1
+      - REDIS_PREFIX=load_balancer
       # App logic settings
-      - ORIGINAL_LINK_FREQUENCY=1
-      - CDN_LINK_FREQUENCY=9
+      - ORIGINAL_LINK_FREQUENCY=10
       - CDN_HOST=www.awesome-cdn.ru
     ports:
     - "8000:8000"
@@ -28,17 +32,31 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    depends_on:
+      - redis_test
     restart: "no"
     volumes:
       - .:/app
     environment:
       - PYTHONPATH=/app
       - ENTRYPOINT_NOWAIT=1
+      - REDIS_ENDPOINT=redis_test
+      - REDIS_DB=1
+      - REDIS_PREFIX=load_balancer
       # App logic settings
-      - ORIGINAL_LINK_FREQUENCY=1
-      - CDN_LINK_FREQUENCY=2
+      - ORIGINAL_LINK_FREQUENCY=3
       - CDN_HOST=www.awesome-cdn.ru
     tty: true
+
+  redis:
+    image: redis:6.2.6-alpine
+    command: redis-server --maxmemory 64Mb
+    restart: "no"
+
+  redis_test:
+    image: redis:6.2.6-alpine
+    command: redis-server --maxmemory 64Mb
+    restart: "no"
 
 volumes:
   data:

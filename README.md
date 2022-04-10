@@ -28,12 +28,11 @@ WORKERS = env.int('WORKERS', default=1)  # the number of workers - tune it using
 
 # App logic settings
 #
-ORIGINAL_LINK_FREQUENCY = env.int('ORIGINAL_LINK_FREQUENCY', default=1)  # frequency to redirect to the original server
-CDN_LINK_FREQUENCY = env.int('CDN_LINK_FREQUENCY', default=9)  # frequency to redirect to cdn
+ORIGINAL_LINK_FREQUENCY = env.int('ORIGINAL_LINK_FREQUENCY', default=10)  # frequency to redirect to the original server
 CDN_HOST = env.str('CDN_HOST', default='www.awesome-cdn.ru')  # cdn host
 ```
-For example, if you want to send every tenth request to the original server and rest of the requests to cdn,  
-use this ratio: ORIGINAL_LINK_FREQUENCY=1, CDN_LINK_FREQUENCY=9
+For example, if you want to send every tenth request to the original server, set ORIGINAL_LINK_FREQUENCY=10.  
+Rest 9 from 10 requests will be sent to cdn.
 
 ### How to build
 > make build
