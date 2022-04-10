@@ -15,7 +15,7 @@ services:
       - PYTHONPATH=/app
       - ENTRYPOINT_NOWAIT=1
       - PORT=8000
-      - DEBUG=True
+      - DEBUG=False
       - WORKERS=1
       # App logic settings
       - ORIGINAL_LINK_FREQUENCY=1
